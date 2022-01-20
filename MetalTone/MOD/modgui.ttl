@@ -1,0 +1,42 @@
+@prefix modgui: <http://moddevices.com/ns/modgui#> .
+@prefix lv2:    <http://lv2plug.in/ns/lv2core#> .
+
+<https://github.com/brummer10/MetalTone>
+    modgui:gui [
+        modgui:resourcesDirectory <modgui> ;
+        modgui:iconTemplate <modgui/icon-metaltone.html> ;
+        modgui:stylesheet <modgui/stylesheet-metaltone.css> ;
+        modgui:screenshot <modgui/screenshot-metaltone.png> ;
+        modgui:thumbnail <modgui/thumbnail-metaltone.png> ;
+        modgui:brand "brummer" ;
+        modgui:label "MetalTone" ;
+        modgui:model "japanese" ;
+        modgui:panel "8-knobs" ;
+        modgui:color "black" ;
+        modgui:knob "orange" ;
+        modgui:port [
+            lv2:index 0 ;
+            lv2:symbol "DIST" ;
+            lv2:name "dist" ;
+        ] , [
+            lv2:index 1 ;
+            lv2:symbol "LOW" ;
+            lv2:name "low" ;
+        ] , [
+            lv2:index 2 ;
+            lv2:symbol "HIGH" ;
+            lv2:name "high" ;
+        ] , [
+            lv2:index 3 ;
+            lv2:symbol "LEVEL" ;
+            lv2:name "level" ;
+        ] , [
+            lv2:index 4 ;
+            lv2:symbol "MIDFREQ" ;
+            lv2:name "midfreq" ;
+        ] , [
+            lv2:index 5 ;
+            lv2:symbol "MIDDLE" ;
+            lv2:name "middle" ;
+        ] ;
+    ] .
