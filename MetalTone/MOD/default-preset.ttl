@@ -1,0 +1,31 @@
+@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix state: <http://lv2plug.in/ns/ext/state#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<default-preset>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/brummer10/MetalTone> ;
+	lv2:port [
+		lv2:symbol "Bypass" ;
+		pset:value 1.0
+	] , [
+		lv2:symbol "DIST" ;
+		pset:value 0.0
+	] , [
+		lv2:symbol "HIGH" ;
+		pset:value 0.5
+	] , [
+		lv2:symbol "LEVEL" ;
+		pset:value 0.3000000
+	] , [
+		lv2:symbol "LOW" ;
+		pset:value 0.5
+	] , [
+		lv2:symbol "MIDDLE" ;
+		pset:value 0.5
+	] , [
+		lv2:symbol "MIDFREQ" ;
+		pset:value 0.5
+	] .
+
