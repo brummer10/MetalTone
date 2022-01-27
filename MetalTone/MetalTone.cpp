@@ -192,9 +192,9 @@ Xmetaltone::Xmetaltone() :
 
 // destructor
 Xmetaltone::~Xmetaltone() { 
-    dsp->del_instance(plugin);
-    dspd->del_instance(plugin);
-    dspp->del_instance(plugin);
+    dsp->del_instance(dsp);
+    dspd->del_instance(dspd);
+    dspp->del_instance(dspp);
 };
 
 ///////////////////////// PRIVATE CLASS  FUNCTIONS /////////////////////
