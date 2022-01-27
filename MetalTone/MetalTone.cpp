@@ -191,7 +191,11 @@ Xmetaltone::Xmetaltone() :
     bypassed(false) {};
 
 // destructor
-Xmetaltone::~Xmetaltone() { };
+Xmetaltone::~Xmetaltone() { 
+    dsp->del_instance(plugin);
+    dspd->del_instance(plugin);
+    dspp->del_instance(plugin);
+};
 
 ///////////////////////// PRIVATE CLASS  FUNCTIONS /////////////////////
 
