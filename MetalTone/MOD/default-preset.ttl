@@ -6,7 +6,6 @@
 <default-preset>
 	a pset:Preset ;
 	lv2:appliesTo <https://github.com/brummer10/MetalTone> ;
-	rdfs:label "Default" ;
 	lv2:port [
 		lv2:symbol "Bypass" ;
 		pset:value 1.0

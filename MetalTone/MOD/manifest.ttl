@@ -12,4 +12,5 @@
 <default-preset>
 	a pset:Preset ;
 	lv2:appliesTo <https://github.com/brummer10/MetalTone> ;
+	rdfs:label "Default" ;
 	rdfs:seeAlso <default-preset.ttl> .

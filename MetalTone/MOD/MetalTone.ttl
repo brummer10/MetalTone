@@ -18,7 +18,7 @@
 <urn:name#me>
    a foaf:Person ;
    foaf:name "brummer" ;
-   rdfs:seeAlso <https://github.com/brummer10/MetalTone> .
+   foaf:homepage <https://github.com/brummer10/MetalTone> .
 
 <https://github.com/brummer10/MetalTone>
    a lv2:Plugin ,
