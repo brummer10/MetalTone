@@ -27,7 +27,7 @@ product. All other trademarks are the property of their respective holders.'
 
 ## Binary
 
-![example workflow](https://github.com/brummer10/MetalTone/actions/workflows/build.yml/badge.svg)
+[![build](https://github.com/brummer10/MetalTone/actions/workflows/build.yml/badge.svg)](https://github.com/brummer10/MetalTone/actions/workflows/build.yml)
 
 [MetalTone.lv2.zip](https://github.com/brummer10/MetalTone/releases/download/Latest/MetalTone.lv2.zip)
 
