@@ -31,8 +31,6 @@
    lv2:minorVersion 1 ;
    lv2:microVersion 2 ;
 
-guiext:ui <https://github.com/brummer10/MetalTone_ui> ;
-
 rdfs:comment """
 MetalTone is modeled after the renowned BOSS MT-2 Metal Zone(*), a high gain distortion pedal with an advanced EQ section.
 
@@ -130,14 +128,3 @@ product. All other trademarks are the property of their respective holders.'
       lv2:minimum 0.000000 ;
       lv2:maximum 1.000000 ;
    ] .
-
-
-<https://github.com/brummer10/MetalTone_ui>
-   a guiext:X11UI;
-   guiext:binary <MetalTone_ui.so> ;
-       lv2:extensionData guiext::idle ;
-       lv2:extensionData guiext:resize ;
-       lv2:extensionData guiext:idleInterface ;
-       lv2:requiredFeature guiext:idleInterface ;
-       lv2:optionalFeature opts:options ;
-       opts:supportedOption guiext:scaleFactor ; .
