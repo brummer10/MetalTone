@@ -45,7 +45,7 @@ Features:
 Modeled by Brummer
 Based on the BOSS MT-2 Metal Zone(*)
 
-(*) 'Other product names modeled in this software are trademarks of their respective companies that do not endorse and are not associated or affiliated with MOD.
+(*) 'Other product names modeled in this software are trademarks of their respective companies that do not endorse and are not associated or affiliated with this software.
 BOSS MT-2 Metal Zone is a trademark or trade name of another manufacturer and was used merely to identify the product whose sound was reviewed in the creation of this 
 product. All other trademarks are the property of their respective holders.'
 """;

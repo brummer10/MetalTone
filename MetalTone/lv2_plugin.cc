@@ -89,7 +89,7 @@ static void draw_window(void *w_, void* user_data) {
 
     cairo_text_extents_t extents;
     use_text_color_scheme(w, get_color_state(w));
-    cairo_set_font_size (w->crb, w->app->big_font/w->scale.ascale);
+    cairo_set_font_size (w->crb, 42/w->scale.ascale);
     cairo_text_extents(w->crb,w->label , &extents);
     double tw = extents.width/2.0;
 
@@ -109,10 +109,73 @@ static void draw_window(void *w_, void* user_data) {
         cairo_show_text(w->crb, basename(ps->filename));       
     }
 #endif
-    cairo_move_to (w->crb, (w->scale.init_width*0.5)-tw, w->scale.init_height-10 );
+    cairo_move_to (w->crb, (w->scale.init_width*0.5)-tw, w->scale.init_height-240 );
     cairo_show_text(w->crb, w->label);
     widget_reset_scale(w);
     cairo_new_path (w->crb);
+}
+
+void draw_image_button(Widget_t *w, int width_t, int height_t, float offset) {
+    int width = cairo_xlib_surface_get_width(w->image);
+    int height = cairo_xlib_surface_get_height(w->image);
+    double half_width = (width/height >=2) ? width*0.5 : width;
+    double x = (double)width_t/(double)(half_width);
+    double y = (double)height_t/(double)height;
+    double x1 = (double)height/(double)height_t;
+    double y1 = (double)(half_width)/(double)width_t;
+    double off_set = offset*x1;
+    double buttonstate = adj_get_state(w->adj);
+    int findex = (int)(((width/height)-1) * buttonstate) * (width/height >=2);
+    cairo_scale(w->crb, x,y);
+    cairo_set_source_surface (w->crb, w->image, -height*findex+off_set, off_set);
+    cairo_rectangle(w->crb,0, 0, height, height);
+    cairo_fill(w->crb);
+    cairo_scale(w->crb, x1,y1);
+}
+
+void draw_ti_button(void *w_, void* user_data) {
+    Widget_t *w = (Widget_t*)w_;
+    if (!w) return;
+    XWindowAttributes attrs;
+    XGetWindowAttributes(w->app->dpy, (Window)w->widget, &attrs);
+    int width = attrs.width-2;
+    int height = attrs.height-2;
+    if (attrs.map_state != IsViewable) return;
+    if (w->image) {
+        float offset = 0.0;
+        if(w->state==1 && ! (int)w->adj_y->value) {
+            offset = 1.0;
+        } else if(w->state==1) {
+            offset = 2.0;
+        } else if(w->state==2) {
+            offset = 2.0;
+        } else if(w->state==3) {
+            offset = 1.0;
+        }
+        draw_image_button(w, width, height,offset);
+    }
+}
+
+void toggle_button_pressed(void *w_, void* button, void* user_data) {
+    Widget_t *w = (Widget_t*)w_;
+    expose_widget(w);
+}
+
+void toggle_button_released(void *w_, void* button_, void* user_data) {
+    Widget_t *w = (Widget_t*)w_;
+    XButtonEvent *xbutton = (XButtonEvent*)button_;
+    if (w->flags & HAS_POINTER) {
+        float value = w->adj->value;
+        if (xbutton->button == Button1) value = value ? 
+                w->adj->min_value : w->adj->max_value; 
+        if (xbutton->button == Button4) value = w->adj->max_value; 
+        if (xbutton->button == Button5) value = w->adj->min_value; 
+        adj_set_value(w->adj, value);
+        w->state = (int) w->adj->value ? 3 : 1;
+    } else {
+        w->state = (int) w->adj->value ? 3 : 0;
+    }
+    expose_widget(w);
 }
 
 // if controller value changed send notify to host
@@ -193,6 +256,25 @@ Widget_t* add_lv2_toggle_button(Widget_t *w, Widget_t *p, PortIndex index, const
 }
 
 Widget_t* add_lv2_image_toggle(Widget_t *w, Widget_t *p, PortIndex index, const char * label,
+                                X11_UI* ui, int x, int y, int width, int height) {
+    Widget_t *wid = create_widget(p->app, p, x, y, width, height);
+    wid->label = label;
+    wid->adj_y = add_adjustment(wid,0.0, 0.0, 0.0, 1.0,1.0, CL_TOGGLE);
+    wid->adj = wid->adj_y;
+    wid->scale.gravity = CENTER;
+    wid->func.expose_callback = draw_ti_button;
+    wid->func.enter_callback = transparent_draw;
+    wid->func.leave_callback = transparent_draw;
+    wid->flags |= NO_PROPAGATE;
+    wid->func.button_press_callback = toggle_button_pressed;
+    wid->func.button_release_callback = toggle_button_released;
+    wid->parent_struct = ui;
+    wid->data = index;
+    wid->func.value_changed_callback = value_changed;
+    return wid;
+}
+
+Widget_t* add_lv2_image_switch(Widget_t *w, Widget_t *p, PortIndex index, const char * label,
                                 X11_UI* ui, int x, int y, int width, int height) {
     w = add_switch_image_button(p, label, x, y, width, height);
     w->parent_struct = ui;
