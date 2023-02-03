@@ -254,7 +254,7 @@ inline void Dsp::clear_state_f()
 inline void Dsp::init(uint32_t sample_rate)
 {
 	fsample_rate = sample_rate;
-    ratio = sample_rate/48000;
+    ratio = std::max<int>(1, sample_rate/48000);
     if (ratio > 1) {
         smp.setup( sample_rate, ratio);
         fSampleRate = 48000;
